@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Palestra: Nutrição e Saúde na Melhor Idade</title>
+    <title>Palestra: Nutrição e Movimento na Melhor Idade</title>
     <style>
         :root {
-            --primary-color: #1e88e5;
-            --secondary-color: #43a047;
-            --bg-color: #f5f9ff;
-            --text-color: #333;
+            --primary-color: #0277bd;
+            --secondary-color: #ff9800;
+            --bg-color: #f0f4f8;
+            --text-color: #2c3e50;
             --card-bg: #ffffff;
         }
 
@@ -31,7 +31,7 @@
             border-radius: 20px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.1);
             width: 100%;
-            max-width: 1000px;
+            max-width: 1100px;
             padding: 40px;
             display: flex;
             flex-direction: column;
@@ -57,7 +57,7 @@
             display: flex;
             flex-direction: column;
             gap: 30px;
-            min-height: 450px;
+            min-height: 500px;
         }
 
         @media (min-width: 768px) {
@@ -72,26 +72,28 @@
                 justify-content: center;
             }
             .slide-text {
-                flex: 1;
+                flex: 1.2;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
+                max-height: 550px;
+                overflow-y: auto;
             }
         }
 
         .slide-image img {
             width: 100%;
             height: 100%;
-            max-height: 400px;
+            max-height: 450px;
             border-radius: 15px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.15);
             object-fit: cover;
         }
 
         .slide-text {
-            font-size: 1.35rem;
-            line-height: 1.7;
-            background-color: #f0f7f0;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            background-color: #fff9f0;
             padding: 30px;
             border-radius: 15px;
             border-left: 8px solid var(--secondary-color);
@@ -101,7 +103,11 @@
             margin-top: 0;
             color: var(--primary-color);
             font-size: 1.8rem;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+        }
+
+        .slide-text strong {
+            color: #d84315;
         }
 
         .controls {
@@ -127,13 +133,13 @@
         }
 
         button:hover {
-            background-color: #1565c0;
+            background-color: #01579b;
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(0,0,0,0.15);
         }
 
         button:disabled {
-            background-color: #90caf9;
+            background-color: #81d4fa;
             cursor: not-allowed;
             transform: translateY(0);
             box-shadow: none;
@@ -142,10 +148,23 @@
         .progress {
             font-size: 1.3rem;
             font-weight: bold;
-            color: var(--text-color);
-            background: #e3f2fd;
+            color: var(--primary-color);
+            background: #e1f5fe;
             padding: 10px 20px;
             border-radius: 20px;
+        }
+
+        /* Scrollbar customizada para o texto */
+        .slide-text::-webkit-scrollbar {
+            width: 8px;
+        }
+        .slide-text::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        .slide-text::-webkit-scrollbar-thumb {
+            background: #ffb74d;
+            border-radius: 10px;
         }
     </style>
 </head>
@@ -153,7 +172,7 @@
 
     <div class="container">
         <div class="header">
-            <h1>🌟 Saúde e Qualidade de Vida</h1>
+            <h1>🧠 Corpo e Mente na Melhor Idade</h1>
         </div>
         
         <div class="slide-content" id="slide-display">
@@ -169,54 +188,54 @@
     <script>
         const slides = [
             {
-                title: "Sejam muito bem-vindos!",
-                text: "Hoje vamos ter uma conversa muito especial sobre como pequenas escolhas diárias podem transformar a nossa saúde e nos dar mais disposição. O nosso objetivo aqui não é falar difícil, mas sim mostrar caminhos práticos para vivermos mais e vivermos melhor. Vamos juntos?",
-                image: "https://images.unsplash.com/photo-1505576399279-565b52d4ac71?auto=format&fit=crop&w=800&q=80"
+                title: "Bem-vindos à nossa conversa!",
+                text: "Hoje, como nutricionista e educadora física, não vim apenas dizer 'o que' vocês devem fazer, mas explicar o <strong>'porquê'</strong>. Quando entendemos como nosso corpo muda com o tempo, fica muito mais fácil cuidar dele. Vamos descobrir como a alimentação e o movimento são os melhores remédios que existem!",
+                image: "https://images.unsplash.com/photo-1573497620053-ea5300f94f21?auto=format&fit=crop&w=800&q=80"
             },
             {
-                title: "Por que a boa alimentação importa tanto?",
-                text: "O nosso corpo é como uma máquina que precisa do combustível certo. Na melhor idade, o corpo absorve menos nutrientes e perde massa muscular mais rápido. É por isso que precisamos comer bem: para ter energia, proteger a memória, o coração e, principalmente, manter os músculos e ossos fortes para termos nossa independência.",
-                image: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=800&q=80"
-            },
-            {
-                title: "Como montar o prato ideal?",
-                text: "É mais simples do que parece! Metade do prato deve ser bem colorida, com verduras e legumes para fortalecer a imunidade. Um quarto do prato vai para a energia: o arroz, a batata ou a mandioca. O último quarto é importantíssimo: as proteínas. Ovos, feijão, frango ou peixe são os 'tijolinhos' que mantêm a força dos nossos músculos.",
-                image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=800&q=80"
-            },
-            {
-                title: "O que devemos evitar?",
-                text: "Não precisamos proibir nada, mas precisamos ter equilíbrio. Muito açúcar atrapalha o controle da glicose. O excesso de sal aumenta a pressão arterial. E as frituras ou alimentos de pacotinho, cheios de conservantes, acabam inflamando e sobrecarregando o nosso organismo. Vamos focar na comida de verdade!",
-                image: "https://images.unsplash.com/photo-1621939514649-280e2ee25f60?auto=format&fit=crop&w=800&q=80"
-            },
-            {
-                title: "A importância da hidratação",
-                text: "Você sabia que na melhor idade a gente sente menos sede? Por isso, não podemos esperar a boca secar para beber água. A água ajuda o intestino a funcionar, previne dores de cabeça e protege os rins. Deixe sempre uma garrafinha por perto. Chás sem açúcar também são ótimos. Só precisamos evitar os refrigerantes.",
+                title: "O Mistério da Sede: Por que esquecemos de beber água?",
+                text: "<strong>A Causa:</strong> No nosso cérebro, existe um 'sensor' (o hipotálamo) que avisa quando o corpo precisa de água. Com a idade, esse sensor envelhece e perde a sensibilidade. A água falta, mas o cérebro não avisa!<br><br><strong>O Perigo:</strong> Desidratação silenciosa. Causa confusão mental, infecção urinária, intestino preso e quedas de pressão.<br><br><strong>A Cura:</strong> Beber água <em>pelo relógio</em>, e não pela sede. Tenha uma garrafinha de 1,5L e coloque como meta esvaziá-la até o fim do dia.",
                 image: "https://images.unsplash.com/photo-1523362628745-0c100150b504?auto=format&fit=crop&w=800&q=80"
             },
             {
-                title: "Corpo em movimento!",
-                text: "Nosso corpo foi feito para se mexer! Caminhadas pelo bairro, alongamentos em casa ou atividades leves ajudam a melhorar o equilíbrio e evitar quedas. Uma musculatura firme protege as articulações e nos dá autonomia para fazer as coisas que amamos sem precisar de ajuda.",
+                title: "Por que perdemos Massa Muscular?",
+                text: "<strong>A Causa:</strong> Esse processo se chama <em>Sarcopenia</em>. Com a idade, nossos hormônios diminuem e nosso corpo fica mais 'preguiçoso' para transformar a proteína da comida em músculo. Além disso, nos movimentamos menos.<br><br><strong>O Perigo:</strong> Músculos fracos deixam os ossos e as articulações desprotegidos, causando dores nos joelhos, coluna e aumentando o risco de quedas graves.<br><br><strong>A Cura:</strong> Consumir proteínas em <em>todas</em> as refeições (ovos, leite, frango) e, obrigatoriamente, fazer exercícios de força.",
+                image: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                title: "A Farmácia do Intestino",
+                text: "<strong>A Causa:</strong> O intestino fica mais lento na melhor idade porque há diminuição dos movimentos peristálticos (a contração que empurra o alimento) e, muitas vezes, mastigamos menos por problemas dentários.<br><br><strong>A Cura pelas Boas Práticas:</strong> Precisamos da tríade: <strong>Água + Fibras + Movimento</strong>. Fibras (mamão, aveia, folhas) formam o 'bolo', a água hidrata e deixa macio, e a caminhada 'balança' o intestino, fazendo-o funcionar como um reloginho.",
+                image: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                title: "Açúcar e Sal: O que eles fazem lá dentro?",
+                text: "<strong>Açúcar:</strong> Causa picos de insulina e 'cansa' o pâncreas, levando ao diabetes. Também inflama as articulações, piorando dores.<br><br><strong>Sal:</strong> O excesso de sódio faz o corpo reter água, o que aumenta o volume de sangue nas veias, estourando a pressão (Hipertensão).<br><br><strong>A Cura:</strong> Troque o sal por temperos naturais (alho, cebola, orégano, açafrão, que é um poderoso anti-inflamatório). Para o doce, frutas assadas com canela enganam a vontade do cérebro.",
+                image: "https://images.unsplash.com/photo-1621939514649-280e2ee25f60?auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                title: "O Remédio chamado Movimento",
+                text: "<strong>Como Educadora Física, eu afirmo:</strong> O corpo é uma máquina que enferruja se parar. Não basta só caminhar! A caminhada é ótima para o coração, mas precisamos de <em>Força e Equilíbrio</em>.<br><br><strong>A Cura:</strong> Exercícios com pesinhos (pode ser garrafa PET com água) ou elásticos. O músculo puxa o osso durante o exercício, e isso faz o osso ficar mais duro e forte, prevenindo a osteoporose. O movimento lubrifica as articulações, tirando a 'ferrugem' e a dor.",
                 image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=800&q=80"
             },
             {
-                title: "Alegria e Dança",
-                text: "A dança é um santo remédio! Ela trabalha o corpo e a mente ao mesmo tempo, melhora o nosso humor, espanta o estresse e nos ajuda a fazer amigos. Coloque uma música que você gosta em casa, afaste os móveis e movimente-se. É saúde pura em forma de alegria.",
+                title: "Cérebro em Ação: O Poder da Dança",
+                text: "<strong>O que acontece:</strong> Quando envelhecemos, algumas conexões nervosas do cérebro se apagam, afetando a memória. <br><br><strong>Por que a Dança Cura?</strong> Dançar exige decorar os passos (memória), equilibrar o corpo (motor) e escutar o ritmo (audição). O cérebro precisa criar <em>novas pontes</em> para dar conta de tudo isso! Sem falar nas endorfinas (hormônios da felicidade) liberadas ao sorrir e socializar. É o melhor exercício mental e físico.",
                 image: "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=800&q=80"
             },
             {
-                title: "Mente ativa sempre",
-                text: "Assim como o corpo, o cérebro precisa de exercícios. Ler um livro, fazer palavras cruzadas, jogar dominó ou cartas com os amigos, e até aprender uma coisa nova ajuda a manter a memória afiada e a concentração lá em cima. Uma mente ativa é o segredo de um envelhecimento saudável.",
-                image: "https://images.unsplash.com/photo-1531844251246-9a1bfaae09fc?auto=format&fit=crop&w=800&q=80"
-            },
-            {
-                title: "O poder do convívio familiar",
-                text: "Comer acompanhado, dar risada com a família ou conversar com vizinhos e amigos é alimento para a alma. O carinho e a interação social reduzem a tristeza e melhoram até o apetite. Não se trata apenas de quantos anos vamos viver, mas da qualidade e da alegria de cada um desses anos.",
+                title: "A Força da Convivência",
+                text: "Nós somos seres sociais. O isolamento aumenta os níveis de cortisol (hormônio do estresse), que literalmente destrói nossos músculos e abaixa nossa imunidade.<br><br><strong>A Cura:</strong> Comer junto com a família, ir a grupos de convivência, conversar. Rir e abraçar libera ocitocina, um hormônio que protege o coração e melhora o apetite.",
                 image: "https://images.unsplash.com/photo-1581579186913-46bcbc60e201?auto=format&fit=crop&w=800&q=80"
             },
             {
-                title: "Receita Prática: Mingau Nutritivo",
-                text: "Para terminar, uma receita fácil!<br><br><strong>Mingau de Aveia:</strong> Misture em uma panela 3 colheres de aveia e 1 xícara de leite. Mexa até engrossar. Desligue e coloque meia banana amassada e um pouco de canela.<br><br><em>Por que é bom?</em> A aveia faz o intestino funcionar como um reloginho, a banana dá energia e a receita é super fácil de mastigar e engolir. Façam em casa!",
-                image: "https://images.unsplash.com/photo-1505253758473-96b7015fcd40?auto=format&fit=crop&w=800&q=80"
+                title: "Receita 1: Super Vitamina Pró-Músculo",
+                text: "Lembra que falamos da Sarcopenia (perda de músculo)? Essa receita é a cura!<br><br><strong>Ingredientes:</strong> 1 copo de leite, 1 colher de leite em pó (ou suplemento proteico se o médico indicar), 1 banana, 1 colher de aveia e 1 castanha do pará.<br><br><strong>Por que funciona?</strong> É uma explosão de proteínas fáceis de digerir. A castanha tem selênio, ótimo para a memória. A banana previne cãibras. Bata tudo e tome no lanche da tarde!",
+                image: "https://images.unsplash.com/photo-1623065422902-30a2d299bbe4?auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                title: "Receita 2: Omelete Anti-inflamatório",
+                text: "Para um jantar leve, nutritivo e que cuida das articulações.<br><br><strong>Ingredientes:</strong> 2 ovos, 1 punhado de espinafre, 1 pitada de açafrão da terra (cúrcuma) e tomate picado.<br><br><strong>Por que funciona?</strong> O ovo é a segunda melhor proteína do mundo (só perde para o leite materno). O açafrão atua nas juntas inflamadas como um remédio natural. E é molinho, fácil de mastigar e não pesa no estômago à noite. Façam e me contem!",
+                image: "https://images.unsplash.com/photo-1510693208761-0b5c19777178?auto=format&fit=crop&w=800&q=80"
             }
         ];
 
@@ -229,7 +248,6 @@
         function updateUI() {
             const slide = slides[currentSlide];
             
-            // Troca o conteúdo da tela com os textos fáceis e as imagens prontas
             slideDisplay.innerHTML = `
                 <div class="slide-image">
                     <img src="${slide.image}" alt="Imagem ilustrativa da palestra">
@@ -250,7 +268,7 @@
                 btnNext.disabled = false;
             }
 
-            progressText.innerText = `Etapa ${currentSlide + 1} de ${slides.length}`;
+            progressText.innerText = `Slide ${currentSlide + 1} de ${slides.length}`;
         }
 
         function changeSlide(direction) {
@@ -260,9 +278,7 @@
             updateUI();
         }
 
-        // Carrega a primeira tela imediatamente
         updateUI();
     </script>
 </body>
 </html>
-
