@@ -3,11 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Palestra: O Novo Manual do Nosso Corpo</title>
+    <title>Nova Estrutura da Expedição</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,700;1,500&family=Inter:wght@400;600&display=swap');
+        :root {
+            --bg-dark: #0f172a; 
+            --bg-card: #1e293b; 
+            --text-main: #f8fafc; 
+            --text-muted: #94a3b8; 
+            --accent-blue: #38bdf8; 
+            --accent-green: #34d399; 
+            --accent-yellow: #fbbf24; 
+        }
 
-        /* Reset básico para evitar bugs de margem */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -15,325 +22,318 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #eef2f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow: hidden; 
             height: 100vh;
-            overflow: hidden;
-            color: #333;
+            width: 100vw;
         }
 
-        /* O contêiner principal - rígido e estável */
-        .presentation-app {
-            width: 95vw;
-            max-width: 1300px;
-            height: 88vh;
-            background: #ffffff;
-            border-radius: 16px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        /* Barra de progresso animada */
-        .progress-bar-container {
-            height: 6px;
-            width: 100%;
-            background-color: #f0f0f0;
-        }
-
-        .progress-bar {
-            height: 100%;
-            background-color: #d35400; /* Cor de destaque (Laranja escuro) */
+        #progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 5px;
+            background-color: var(--accent-blue);
             width: 0%;
-            transition: width 0.4s ease;
+            transition: width 0.3s ease;
+            z-index: 100;
         }
 
-        /* Layout em GRID - Impede que imagem e texto se sobreponham */
-        .slide-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr; /* Duas colunas de tamanhos iguais */
-            flex: 1; /* Ocupa todo o espaço restante */
-            overflow: hidden;
-        }
-
-        /* Coluna da Imagem */
-        .image-column {
+        #presentation {
+            position: relative;
             width: 100%;
             height: 100%;
-            overflow: hidden;
-            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        .image-column img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Faz a imagem preencher o espaço sem distorcer */
-            display: block;
-            animation: fadeIn 0.8s ease-in-out;
-        }
-
-        /* Coluna do Texto */
-        .text-column {
-            padding: 60px 50px;
+        .slide {
+            position: absolute;
+            width: 85%;
+            max-width: 1200px;
+            height: 85%;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.5s ease-in-out;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            overflow-y: auto; /* Permite rolar o texto se for muito grande, sem quebrar o layout */
+            align-items: flex-start;
         }
 
-        .text-column h1 {
-            font-family: 'Lora', serif;
-            font-size: 2.5rem;
-            color: #2c3e50; /* Azul marinho escuro */
-            margin-bottom: 25px;
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: clamp(3rem, 6vh, 5rem);
+            color: var(--accent-blue);
+            margin-bottom: 20px;
             line-height: 1.2;
+            font-weight: 800;
         }
 
-        .text-column p {
-            font-size: 1.25rem;
-            line-height: 1.7;
-            margin-bottom: 20px;
-            color: #4a5568;
+        h2 {
+            font-size: clamp(2.5rem, 5vh, 4rem);
+            color: var(--accent-blue);
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--text-muted);
+            padding-bottom: 15px;
+            width: 100%;
+            line-height: 1.3;
         }
 
-        .text-column ul {
-            font-size: 1.25rem;
-            line-height: 1.7;
-            color: #4a5568;
-            padding-left: 25px;
-            margin-bottom: 20px;
+        ul {
+            list-style-type: none;
+            width: 100%;
         }
 
-        .text-column li {
-            margin-bottom: 10px;
-        }
-
-        .highlight-box {
-            background-color: #fff4e6;
-            border-left: 5px solid #d35400;
-            padding: 20px;
-            border-radius: 0 8px 8px 0;
-            margin: 25px 0;
-            font-style: italic;
-            font-weight: 600;
-            color: #b33900;
-            font-size: 1.2rem;
-        }
-
-        /* Rodapé com botões de controle */
-        .controls-footer {
-            height: 80px;
-            background-color: #ffffff;
-            border-top: 1px solid #e2e8f0;
+        li {
+            font-size: clamp(1.8rem, 3.5vh, 2.5rem);
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: var(--text-main);
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 40px;
+            align-items: flex-start;
         }
 
-        .counter {
-            font-weight: 600;
-            color: #718096;
-            font-size: 1.1rem;
+        li::before {
+            content: "➔";
+            color: var(--accent-blue);
+            margin-right: 20px;
+            font-weight: bold;
+            flex-shrink: 0;
+            margin-top: 5px;
+        }
+
+        .highlight {
+            color: var(--accent-yellow);
+            font-weight: bold;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            font-size: clamp(1.5rem, 3vh, 2rem);
+            text-transform: uppercase;
             letter-spacing: 1px;
         }
 
+        .badge-07 { background: var(--accent-blue); color: var(--bg-dark); }
+        .badge-09 { background: var(--accent-yellow); color: var(--bg-dark); }
+        .badge-11 { background: var(--accent-green); color: var(--bg-dark); }
+        .badge-noite { background: var(--text-muted); color: var(--bg-dark); }
+
+        .big-statement {
+            font-size: clamp(2.5rem, 5vh, 3.5rem);
+            font-weight: bold;
+            color: var(--accent-green);
+            text-align: center;
+            width: 100%;
+            margin-top: 40px;
+            padding: 30px;
+            background: rgba(52, 211, 153, 0.1);
+            border-radius: 12px;
+            border: 2px dashed var(--accent-green);
+            line-height: 1.4;
+        }
+
+        .footer-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 30px;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .slide-counter {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            font-weight: bold;
+        }
+
         button {
-            padding: 12px 28px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            border-radius: 8px;
+            background-color: var(--bg-card);
+            color: var(--text-main);
+            border: 1px solid var(--text-muted);
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            border-radius: 6px;
             cursor: pointer;
-            transition: all 0.2s ease;
-            border: 2px solid transparent;
+            transition: all 0.2s;
         }
 
-        .btn-prev {
-            background-color: #edf2f7;
-            color: #4a5568;
-        }
-
-        .btn-prev:hover:not(:disabled) {
-            background-color: #e2e8f0;
-        }
-
-        .btn-next {
-            background-color: #2c3e50;
-            color: #ffffff;
-        }
-
-        .btn-next:hover:not(:disabled) {
-            background-color: #1a252f;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(44, 62, 80, 0.3);
-        }
-
-        button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none !important;
-            box-shadow: none !important;
-        }
-
-        /* Animação suave para troca de slide */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .fade-content {
-            animation: fadeIn 0.6s ease-in-out;
-        }
-
-        /* Responsividade para telas menores */
-        @media (max-width: 900px) {
-            .slide-grid {
-                grid-template-columns: 1fr; /* Muda para 1 coluna empilhada */
-                grid-template-rows: 40% 60%;
-            }
-            .text-column {
-                padding: 30px;
-            }
-            .text-column h1 {
-                font-size: 1.8rem;
-            }
+        button:hover {
+            background-color: var(--accent-blue);
+            color: var(--bg-dark);
+            border-color: var(--accent-blue);
         }
     </style>
 </head>
 <body>
 
-    <div class="presentation-app">
-        <div class="progress-bar-container">
-            <div class="progress-bar" id="progress-bar"></div>
+    <div id="progress-bar"></div>
+
+    <div id="presentation">
+        
+        <div class="slide active">
+            <h1>NOVA ESTRUTURA DA EXPEDIÇÃO</h1>
+            <p style="font-size: 2.2rem; color: var(--text-muted); margin-top: 15px;">Organização, Estratégia e Clareza Operacional</p>
         </div>
 
-        <div class="slide-grid">
-            <div class="image-column">
-                <img id="slide-img" src="" alt="Imagem da Palestra">
+        <div class="slide">
+            <h2>Objetivo da Mudança</h2>
+            <ul>
+                <li>Acabar com dúvidas operacionais e decisões de última hora.</li>
+                <li>Garantir fluidez, principalmente no turno da manhã.</li>
+                <li>Ter clareza do <span class="highlight">foco principal</span> de cada equipe no dia a dia.</li>
+            </ul>
+        </div>
+
+        <div class="slide">
+            <h2><span class="badge badge-07">Turno das 07h</span> Base Principal</h2>
+            <ul>
+                <li><strong>Rotas Oficiais:</strong> 1, 2, 3, 4, 14, 15, 16 e 20.</li>
+                <li>Foco primário na <span class="highlight">preparação e carregamento</span> destas rotas.</li>
+                <li>O apoio recebido do noturno é para acelerar, mas o foco da entrega continua sendo da manhã.</li>
+            </ul>
+        </div>
+
+        <div class="slide">
+            <h2><span class="badge badge-09">Turno das 09h</span> Controle e Equilíbrio</h2>
+            <ul>
+                <li><strong>Gargalos:</strong> 2 colaboradores focados nas esteiras (Medicamento e Perfumaria).</li>
+                <li><strong>Rotas Específicas:</strong> Foco direcional nas rotas 5 e 6.</li>
+                <li><strong>Integração:</strong> Após conclusão, o foco gira para o apoio imediato aos turnos das 11h ou 07h.</li>
+            </ul>
+        </div>
+
+        <div class="slide">
+            <h2><span class="badge badge-11">Turno das 11h</span> Volume</h2>
+            <ul>
+                <li><strong>Rotas Oficiais:</strong> 7, 8, 9, 10, 11, 12 e 13.</li>
+                <li><strong>Foco Central:</strong> Preparação rigorosa e organização para o carregamento.</li>
+            </ul>
+        </div>
+
+        <div class="slide">
+            <h2><span class="badge badge-noite">Turno Noturno</span> Antecipação</h2>
+            <ul>
+                <li><strong>Prioridade Zero:</strong> Carregamento de rotas prontas e aplicação do <span class="highlight">6S</span>.</li>
+                <li><strong>Cenário Ideal:</strong> Antecipar as rotas 14, 15 e 16 na madrugada.</li>
+            </ul>
+        </div>
+
+        <div class="slide">
+            <h2>Liderança Administrativa (Adson)</h2>
+            <p style="font-size: 2.2rem; color: var(--text-muted); margin-bottom: 25px;">Novas responsabilidades como Assistente Técnico:</p>
+            <ul>
+                <li>Distribuição diária e estratégica das rotas do turno das 07h.</li>
+                <li>Definição direcionada da equipe que <strong>prepara</strong> cada rota.</li>
+                <li>Definição direcionada da equipe que <strong>carrega</strong> cada caminhão.</li>
+                <li>Entrega do planejamento matinal validado para a Supervisão.</li>
+            </ul>
+        </div>
+
+        <div class="slide">
+            <h2>Fluxo Diário</h2>
+            <ul>
+                <li><strong>Passo 1:</strong> Adson organiza o planejamento da equipe.</li>
+                <li><strong>Passo 2:</strong> Validação pela Supervisão.</li>
+                <li><strong>Passo 3:</strong> Repasse oficial do plano para a Prevenção.</li>
+            </ul>
+            <div class="big-statement" style="font-size: 2.2rem; padding: 20px; margin-top: 30px;">
+                Objetivo: Processo simples e organizado logo no início do turno.
             </div>
-            
-            <div class="text-column" id="slide-content">
-                </div>
         </div>
 
-        <div class="controls-footer">
-            <button class="btn-prev" id="btn-prev" onclick="changeSlide(-1)">Voltar</button>
-            <div class="counter" id="counter">01 / 10</div>
-            <button class="btn-next" id="btn-next" onclick="changeSlide(1)">Avançar ➜</button>
+        <div class="slide">
+            <h2>Trabalho Integrado e Apoio</h2>
+            <ul>
+                <li>Somos uma única expedição. O sucesso do turno é o sucesso de todos.</li>
+                <li>Ter um foco principal para cada equipe organiza o fluxo, mas o apoio mútuo continua sendo a regra.</li>
+            </ul>
+            <div class="big-statement">
+                O foco é específico, mas o trabalho é sempre integrado.
+            </div>
         </div>
+
+        <div class="slide">
+            <h2>Resultados Esperados</h2>
+            <ul>
+                <li>Mais organização operacional.</li>
+                <li>Menos desgaste físico e mental para a equipe.</li>
+                <li>Operação fluida sem a necessidade de cobranças constantes.</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="footer-controls">
+        <button onclick="prevSlide()" id="btn-prev">❮ Voltar</button>
+        <div class="slide-counter"><span id="current">1</span> / <span id="total">10</span></div>
+        <button onclick="nextSlide()" id="btn-next">Avançar ❯</button>
     </div>
 
     <script>
-        const slides = [
-            {
-                title: "O Novo Manual do Nosso Corpo",
-                text: "<p>Sejam muito bem-vindos! Pense no nosso corpo como um carro clássico de altíssimo valor. Com o passar dos anos, o motor não estraga, mas ele passa a exigir um combustível mais limpo e uma manutenção mais cuidadosa.</p><p>Hoje, não vamos falar de restrições ou dietas chatas. Vamos entender <strong>como nossa máquina funciona hoje</strong> e descobrir qual é o novo manual de instruções para vivermos com autonomia, força e alegria.</p>",
-                image: "https://images.unsplash.com/photo-1505576399279-565b52d4ac71?auto=format&fit=crop&w=1200&q=80"
-            },
-            {
-                title: "O Mistério da Sede que Some",
-                text: "<p>Você já reparou que, com o passar dos anos, a gente quase não sente mais sede? Isso não é acaso. No nosso cérebro, existe um 'sensor' que avisa quando o corpo precisa de água. O problema é que, na melhor idade, esse sensor perde a sensibilidade.</p><div class='highlight-box'>A água falta no motor, mas o painel do carro não acende a luz vermelha.</div><p>A desidratação silenciosa causa confusão mental, intestino preso e quedas de pressão. A regra de ouro agora é: <strong>beber água pelo relógio, e não pela sede.</strong></p>",
-                image: "https://images.unsplash.com/photo-1523362628745-0c100150b504?auto=format&fit=crop&w=1200&q=80"
-            },
-            {
-                title: "A Nossa Armadura: Poupança Muscular",
-                text: "<p>Músculo não é estética, é a nossa <strong>armadura</strong>. Existe um processo natural chamado <em>Sarcopenia</em>, onde o corpo começa a perder massa muscular se não fizermos a manutenção correta.</p><p>Quando perdemos essa capa de proteção, o peso vai todo para os ossos e para as juntas, causando dores nos joelhos, na coluna e aumentando o risco de quedas graves.</p><div class='highlight-box'>Músculo é como uma conta no banco. Precisamos fazer depósitos diários de proteína (ovos, carnes, feijão) para não ficarmos no vermelho.</div>",
-                image: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=1200&q=80"
-            },
-            {
-                title: "O Prato de Alta Octanagem",
-                text: "<p>Como fazemos esses depósitos na prática? O prato ideal na melhor idade precisa ser inteligente, porque o nosso metabolismo está mais lento e absorve menos os nutrientes.</p><p>Metade do prato deve ser o nosso 'óleo lubrificante': vegetais e verduras bem coloridos que desinflamam o corpo e regulam o intestino. Um quarto é a energia limpa: batata, mandioca ou arroz. E o último quarto é a nossa reconstrução: proteínas de qualidade para manter os músculos firmes.</p>",
-                image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=1200&q=80"
-            },
-            {
-                title: "Os Ferrugens do Motor: Açúcar e Sal",
-                text: "<p>Ninguém precisa parar de comer o que gosta, mas precisamos entender a química do corpo. O excesso de açúcar 'cansa' o pâncreas e causa picos que inflamam as articulações – sim, o açúcar piora as dores no corpo!</p><p>Já o sal em excesso faz o corpo reter líquidos, o que aumenta o volume de sangue nas veias, estourando a pressão arterial.</p><div class='highlight-box'>Troque o sal por temperos que curam: alho, cebola e açafrão da terra (cúrcuma), que é um poderoso anti-inflamatório natural.</div>",
-                image: "https://images.unsplash.com/photo-1621939514649-280e2ee25f60?auto=format&fit=crop&w=1200&q=80"
-            },
-            {
-                title: "O Remédio que Farmácia Nenhuma Vende",
-                text: "<p>O corpo humano é a única máquina que enferruja se ficar parada. Caminhar é maravilhoso para o coração, mas precisamos de algo a mais: <strong>Força.</strong></p><p>Fazer exercícios de resistência, puxar um elástico ou levantar pequenos pesos, faz com que o músculo puxe o osso. Essa tração estimula o osso a ficar mais duro e denso, prevenindo a osteoporose. Movimento é lubrificação pura para as articulações.</p>",
-                image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1200&q=80"
-            },
-            {
-                title: "A Dança dos Neurônios",
-                text: "<p>O nosso cérebro também precisa transpirar! Se fazemos sempre o mesmo caminho e a mesma rotina, as conexões neurais se apagam.</p><p>Querem o melhor exercício mental que existe? <strong>A Dança.</strong> Quando dançamos, precisamos usar a audição para o ritmo, o motor para o equilíbrio e a memória para não errar o passo. O cérebro é obrigado a criar novas pontes e conexões para dar conta de tudo isso. É vida em movimento!</p>",
-                image: "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1200&q=80"
-            },
-            {
-                title: "A Vitamina do Sorriso",
-                text: "<p>Nenhum remédio ou alimento substitui a força da convivência. O isolamento eleva os hormônios do estresse, que destroem nossos músculos e baixam nossa imunidade.</p><p>Comer junto com a família, rir, conversar e estar perto de quem amamos libera ocitocina, um hormônio que protege o coração, melhora o sono e abre o apetite. A saúde emocional é o alicerce de tudo o que falamos até agora.</p>",
-                image: "https://images.unsplash.com/photo-1581579186913-46bcbc60e201?auto=format&fit=crop&w=1200&q=80"
-            },
-            {
-                title: "Na Prática: Vitamina Pró-Músculo",
-                text: "<p>Vamos colocar isso na mesa? Aqui vai uma receita focada na nossa 'Armadura Muscular'. Perfeita para um lanche da tarde.</p><ul><li>1 copo de leite (ou leite vegetal)</li><li>1 colher de sopa de leite em pó</li><li>1 banana madura (evita cãibras)</li><li>1 colher de aveia</li><li>1 castanha do pará (rica em selênio para a memória)</li></ul><div class='highlight-box'>Bata tudo. É fácil de mastigar, tem digestão rápida e garante que sua meta de proteínas do dia fique no azul!</div>",
-                image: "https://images.unsplash.com/photo-1623065422902-30a2d299bbe4?auto=format&fit=crop&w=1200&q=80"
-            },
-            {
-                title: "Na Prática: Jantar Anti-inflamatório",
-                text: "<p>Para fechar o dia sem pesar o estômago e ainda tratar as inflamações do corpo, o Omelete Colorido é imbatível.</p><ul><li>2 ovos batidos (a segunda melhor proteína do mundo)</li><li>1 punhado de espinafre picadinho</li><li>Tomate picado</li><li>O segredo: 1 pitada de açafrão da terra (cúrcuma)</li></ul><p>O ovo reconstrói o corpo enquanto dormimos, e o açafrão age nas articulações como um bálsamo. <strong>Viver melhor é uma escolha diária. Muito obrigado pela presença!</strong></p>",
-                image: "https://images.unsplash.com/photo-1510693208761-0b5c19777178?auto=format&fit=crop&w=1200&q=80"
-            }
-        ];
-
-        let currentSlide = 0;
-        const imgElement = document.getElementById('slide-img');
-        const textContainer = document.getElementById('slide-content');
-        const btnPrev = document.getElementById('btn-prev');
-        const btnNext = document.getElementById('btn-next');
-        const counter = document.getElementById('counter');
+        let currentIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
         const progressBar = document.getElementById('progress-bar');
+        
+        document.getElementById('total').innerText = totalSlides;
 
-        function updateUI() {
-            const slide = slides[currentSlide];
-            
-            // Troca a imagem
-            imgElement.src = slide.image;
-            
-            // Re-aplica a classe de animação para dar o efeito de entrada suave no texto
-            textContainer.classList.remove('fade-content');
-            void textContainer.offsetWidth; // Força um reflow no navegador
-            textContainer.classList.add('fade-content');
+        function updatePresentation() {
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active');
+                if (index === currentIndex) {
+                    slide.classList.add('active');
+                }
+            });
 
-            // Injeta o HTML do texto
-            textContainer.innerHTML = `
-                <h1>${slide.title}</h1>
-                ${slide.text}
-            `;
+            document.getElementById('current').innerText = currentIndex + 1;
+            const progress = ((currentIndex + 1) / totalSlides) * 100;
+            progressBar.style.width = progress + '%';
 
-            // Controle dos botões
-            btnPrev.disabled = currentSlide === 0;
-            
-            if (currentSlide === slides.length - 1) {
-                btnNext.innerHTML = "Finalizar Palestra ✔️";
-            } else {
-                btnNext.innerHTML = "Avançar ➜";
-            }
-
-            // Atualiza contadores e barra de progresso
-            counter.innerText = `${String(currentSlide + 1).padStart(2, '0')} / ${slides.length}`;
-            const progressPercentage = ((currentSlide + 1) / slides.length) * 100;
-            progressBar.style.width = `${progressPercentage}%`;
+            document.getElementById('btn-prev').style.opacity = currentIndex === 0 ? '0.5' : '1';
+            document.getElementById('btn-next').style.opacity = currentIndex === totalSlides - 1 ? '0.5' : '1';
         }
 
-        function changeSlide(direction) {
-            currentSlide += direction;
-            if (currentSlide < 0) currentSlide = 0;
-            if (currentSlide >= slides.length) {
-                alert("Palestra concluída! Parabéns pela apresentação!");
-                currentSlide = slides.length - 1;
-                return;
+        function nextSlide() {
+            if (currentIndex < totalSlides - 1) {
+                currentIndex++;
+                updatePresentation();
             }
-            updateUI();
         }
 
-        // Inicializa o primeiro slide
-        updateUI();
+        function prevSlide() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updatePresentation();
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            }
+        });
+
+        updatePresentation();
     </script>
 </body>
 </html>
